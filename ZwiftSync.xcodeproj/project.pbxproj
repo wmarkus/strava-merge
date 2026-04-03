@@ -1,0 +1,490 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 56;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		089C1665E20B329900000200 /* ZwiftSyncApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 089C1665E20B329900000100 /* ZwiftSyncApp.swift */; };
+		089C1665E20B329900000201 /* AppState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 089C1665E20B329900000101 /* AppState.swift */; };
+		089C1665E20B329900000202 /* Config.swift in Sources */ = {isa = PBXBuildFile; fileRef = 089C1665E20B329900000102 /* Config.swift */; };
+		089C1665E20B329900000203 /* StravaActivity.swift in Sources */ = {isa = PBXBuildFile; fileRef = 089C1665E20B329900000103 /* StravaActivity.swift */; };
+		089C1665E20B329900000204 /* StravaStreams.swift in Sources */ = {isa = PBXBuildFile; fileRef = 089C1665E20B329900000104 /* StravaStreams.swift */; };
+		089C1665E20B329900000205 /* StravaAuth.swift in Sources */ = {isa = PBXBuildFile; fileRef = 089C1665E20B329900000105 /* StravaAuth.swift */; };
+		089C1665E20B329900000206 /* EnrichmentModels.swift in Sources */ = {isa = PBXBuildFile; fileRef = 089C1665E20B329900000106 /* EnrichmentModels.swift */; };
+		089C1665E20B329900000207 /* StravaLap.swift in Sources */ = {isa = PBXBuildFile; fileRef = 089C1665E20B329900000107 /* StravaLap.swift */; };
+		089C1665E20B329900000208 /* StravaService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 089C1665E20B329900000108 /* StravaService.swift */; };
+		089C1665E20B329900000209 /* HealthKitService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 089C1665E20B329900000109 /* HealthKitService.swift */; };
+		089C1665E20B32990000020A /* TCXGenerator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 089C1665E20B32990000010A /* TCXGenerator.swift */; };
+		089C1665E20B32990000020B /* EnrichmentService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 089C1665E20B32990000010B /* EnrichmentService.swift */; };
+		089C1665E20B32990000020C /* ActivityListViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 089C1665E20B32990000010C /* ActivityListViewModel.swift */; };
+		089C1665E20B32990000020D /* EnrichViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 089C1665E20B32990000010D /* EnrichViewModel.swift */; };
+		089C1665E20B32990000020E /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 089C1665E20B32990000010E /* ContentView.swift */; };
+		089C1665E20B32990000020F /* SetupView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 089C1665E20B32990000010F /* SetupView.swift */; };
+		089C1665E20B329900000210 /* ActivityListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 089C1665E20B329900000110 /* ActivityListView.swift */; };
+		089C1665E20B329900000211 /* EnrichDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 089C1665E20B329900000111 /* EnrichDetailView.swift */; };
+		089C1665E20B329900000212 /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 089C1665E20B329900000112 /* SettingsView.swift */; };
+		089C1665E20B329900000213 /* KeychainService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 089C1665E20B329900000113 /* KeychainService.swift */; };
+		089C1665E20B329900000214 /* PKCEHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 089C1665E20B329900000114 /* PKCEHelper.swift */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXFileReference section */
+		089C1665E20B32990000000D /* ZwiftSync.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ZwiftSync.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		089C1665E20B329900000100 /* ZwiftSyncApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ZwiftSyncApp.swift; sourceTree = "<group>"; };
+		089C1665E20B329900000101 /* AppState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppState.swift; sourceTree = "<group>"; };
+		089C1665E20B329900000102 /* Config.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Config.swift; sourceTree = "<group>"; };
+		089C1665E20B329900000103 /* StravaActivity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StravaActivity.swift; sourceTree = "<group>"; };
+		089C1665E20B329900000104 /* StravaStreams.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StravaStreams.swift; sourceTree = "<group>"; };
+		089C1665E20B329900000105 /* StravaAuth.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StravaAuth.swift; sourceTree = "<group>"; };
+		089C1665E20B329900000106 /* EnrichmentModels.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EnrichmentModels.swift; sourceTree = "<group>"; };
+		089C1665E20B329900000107 /* StravaLap.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StravaLap.swift; sourceTree = "<group>"; };
+		089C1665E20B329900000108 /* StravaService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StravaService.swift; sourceTree = "<group>"; };
+		089C1665E20B329900000109 /* HealthKitService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HealthKitService.swift; sourceTree = "<group>"; };
+		089C1665E20B32990000010A /* TCXGenerator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TCXGenerator.swift; sourceTree = "<group>"; };
+		089C1665E20B32990000010B /* EnrichmentService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EnrichmentService.swift; sourceTree = "<group>"; };
+		089C1665E20B32990000010C /* ActivityListViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActivityListViewModel.swift; sourceTree = "<group>"; };
+		089C1665E20B32990000010D /* EnrichViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EnrichViewModel.swift; sourceTree = "<group>"; };
+		089C1665E20B32990000010E /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
+		089C1665E20B32990000010F /* SetupView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SetupView.swift; sourceTree = "<group>"; };
+		089C1665E20B329900000110 /* ActivityListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActivityListView.swift; sourceTree = "<group>"; };
+		089C1665E20B329900000111 /* EnrichDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EnrichDetailView.swift; sourceTree = "<group>"; };
+		089C1665E20B329900000112 /* SettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsView.swift; sourceTree = "<group>"; };
+		089C1665E20B329900000113 /* KeychainService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeychainService.swift; sourceTree = "<group>"; };
+		089C1665E20B329900000114 /* PKCEHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PKCEHelper.swift; sourceTree = "<group>"; };
+		089C1665E20B329900000120 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		089C1665E20B329900000121 /* ZwiftSync.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = ZwiftSync.entitlements; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXGroup section */
+		089C1665E20B32990000000E = {
+			isa = PBXGroup;
+			children = (
+				089C1665E20B32990000000F /* ZwiftSync */,
+				089C1665E20B329900000019 /* Products */,
+				089C1665E20B32990000001A /* Frameworks */,
+			);
+			sourceTree = "<group>";
+		};
+		089C1665E20B329900000019 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				089C1665E20B32990000000D /* ZwiftSync.app */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		089C1665E20B32990000001A /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		089C1665E20B32990000000F /* ZwiftSync */ = {
+			isa = PBXGroup;
+			children = (
+				089C1665E20B329900000010 /* Sources */,
+				089C1665E20B329900000017 /* Resources */,
+				089C1665E20B329900000018 /* Tests */,
+				089C1665E20B329900000120 /* Info.plist */,
+				089C1665E20B329900000121 /* ZwiftSync.entitlements */,
+			);
+			path = ZwiftSync;
+			sourceTree = "<group>";
+		};
+		089C1665E20B329900000010 /* Sources */ = {
+			isa = PBXGroup;
+			children = (
+				089C1665E20B329900000011 /* App */,
+				089C1665E20B329900000012 /* Models */,
+				089C1665E20B329900000013 /* Services */,
+				089C1665E20B329900000014 /* ViewModels */,
+				089C1665E20B329900000015 /* Views */,
+				089C1665E20B329900000016 /* Utilities */,
+			);
+			path = Sources;
+			sourceTree = "<group>";
+		};
+		089C1665E20B329900000011 /* App */ = {
+			isa = PBXGroup;
+			children = (
+				089C1665E20B329900000100 /* ZwiftSyncApp.swift */,
+				089C1665E20B329900000101 /* AppState.swift */,
+				089C1665E20B329900000102 /* Config.swift */,
+			);
+			path = App;
+			sourceTree = "<group>";
+		};
+		089C1665E20B329900000012 /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				089C1665E20B329900000103 /* StravaActivity.swift */,
+				089C1665E20B329900000104 /* StravaStreams.swift */,
+				089C1665E20B329900000105 /* StravaAuth.swift */,
+				089C1665E20B329900000106 /* EnrichmentModels.swift */,
+				089C1665E20B329900000107 /* StravaLap.swift */,
+			);
+			path = Models;
+			sourceTree = "<group>";
+		};
+		089C1665E20B329900000013 /* Services */ = {
+			isa = PBXGroup;
+			children = (
+				089C1665E20B329900000108 /* StravaService.swift */,
+				089C1665E20B329900000109 /* HealthKitService.swift */,
+				089C1665E20B32990000010A /* TCXGenerator.swift */,
+				089C1665E20B32990000010B /* EnrichmentService.swift */,
+			);
+			path = Services;
+			sourceTree = "<group>";
+		};
+		089C1665E20B329900000014 /* ViewModels */ = {
+			isa = PBXGroup;
+			children = (
+				089C1665E20B32990000010C /* ActivityListViewModel.swift */,
+				089C1665E20B32990000010D /* EnrichViewModel.swift */,
+			);
+			path = ViewModels;
+			sourceTree = "<group>";
+		};
+		089C1665E20B329900000015 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				089C1665E20B32990000010E /* ContentView.swift */,
+				089C1665E20B32990000010F /* SetupView.swift */,
+				089C1665E20B329900000110 /* ActivityListView.swift */,
+				089C1665E20B329900000111 /* EnrichDetailView.swift */,
+				089C1665E20B329900000112 /* SettingsView.swift */,
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
+		089C1665E20B329900000016 /* Utilities */ = {
+			isa = PBXGroup;
+			children = (
+				089C1665E20B329900000113 /* KeychainService.swift */,
+				089C1665E20B329900000114 /* PKCEHelper.swift */,
+			);
+			path = Utilities;
+			sourceTree = "<group>";
+		};
+		089C1665E20B329900000017 /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Resources;
+			sourceTree = "<group>";
+		};
+		089C1665E20B329900000018 /* Tests */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Tests;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		089C1665E20B329900000009 /* ZwiftSync */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 089C1665E20B329900000006 /* Build configuration list for PBXNativeTarget "ZwiftSync" */;
+			buildPhases = (
+				089C1665E20B32990000000A /* Sources */,
+				089C1665E20B32990000000B /* Frameworks */,
+				089C1665E20B32990000000C /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = ZwiftSync;
+			productName = ZwiftSync;
+			productReference = 089C1665E20B32990000000D /* ZwiftSync.app */;
+			productType = "com.apple.product-type.application";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		089C1665E20B329900000001 /* Project object */ = {
+			isa = PBXProject;
+			buildConfigurationList = 089C1665E20B329900000003 /* Build configuration list for PBXProject "ZwiftSync" */;
+			compatibilityVersion = "Xcode 14.0";
+			developmentRegion = en;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = 089C1665E20B32990000000E;
+			productRefGroup = 089C1665E20B329900000019 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				089C1665E20B329900000009 /* ZwiftSync */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXSourcesBuildPhase section */
+		089C1665E20B32990000000A /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				089C1665E20B329900000200 /* ZwiftSyncApp.swift in Sources */,
+				089C1665E20B329900000201 /* AppState.swift in Sources */,
+				089C1665E20B329900000202 /* Config.swift in Sources */,
+				089C1665E20B329900000203 /* StravaActivity.swift in Sources */,
+				089C1665E20B329900000204 /* StravaStreams.swift in Sources */,
+				089C1665E20B329900000205 /* StravaAuth.swift in Sources */,
+				089C1665E20B329900000206 /* EnrichmentModels.swift in Sources */,
+				089C1665E20B329900000207 /* StravaLap.swift in Sources */,
+				089C1665E20B329900000208 /* StravaService.swift in Sources */,
+				089C1665E20B329900000209 /* HealthKitService.swift in Sources */,
+				089C1665E20B32990000020A /* TCXGenerator.swift in Sources */,
+				089C1665E20B32990000020B /* EnrichmentService.swift in Sources */,
+				089C1665E20B32990000020C /* ActivityListViewModel.swift in Sources */,
+				089C1665E20B32990000020D /* EnrichViewModel.swift in Sources */,
+				089C1665E20B32990000020E /* ContentView.swift in Sources */,
+				089C1665E20B32990000020F /* SetupView.swift in Sources */,
+				089C1665E20B329900000210 /* ActivityListView.swift in Sources */,
+				089C1665E20B329900000211 /* EnrichDetailView.swift in Sources */,
+				089C1665E20B329900000212 /* SettingsView.swift in Sources */,
+				089C1665E20B329900000213 /* KeychainService.swift in Sources */,
+				089C1665E20B329900000214 /* PKCEHelper.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		089C1665E20B32990000000B /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXResourcesBuildPhase section */
+		089C1665E20B32990000000C /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin XCBuildConfiguration section */
+		089C1665E20B329900000004 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ASCENTT_CHANGE_TRACKING_ENABLED = YES;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu17;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
+				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "$(inherited) DEBUG";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+			};
+			name = Debug;
+		};
+		089C1665E20B329900000005 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ASCENTT_CHANGE_TRACKING_ENABLED = YES;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu17;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
+				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				MTL_FAST_MATH = YES;
+				SDKROOT = iphoneos;
+				SWIFT_COMPILATION_MODE = wholemodule;
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		089C1665E20B329900000007 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASCENTT_CHANGE_TRACKING_ENABLED = YES;
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = ZwiftSync/ZwiftSync.entitlements;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = "";
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = ZwiftSync/Info.plist;
+				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
+				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
+				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.zwiftsync.app;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_STRICT_CONCURRENCY = complete;
+				SWIFT_VERSION = 6.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		089C1665E20B329900000008 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASCENTT_CHANGE_TRACKING_ENABLED = YES;
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = ZwiftSync/ZwiftSync.entitlements;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = "";
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = ZwiftSync/Info.plist;
+				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
+				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
+				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.zwiftsync.app;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_STRICT_CONCURRENCY = complete;
+				SWIFT_VERSION = 6.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		089C1665E20B329900000003 /* Build configuration list for PBXProject "ZwiftSync" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				089C1665E20B329900000004 /* Debug */,
+				089C1665E20B329900000005 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		089C1665E20B329900000006 /* Build configuration list for PBXNativeTarget "ZwiftSync" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				089C1665E20B329900000007 /* Debug */,
+				089C1665E20B329900000008 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+
+	};
+	rootObject = 089C1665E20B329900000001 /* Project object */;
+}

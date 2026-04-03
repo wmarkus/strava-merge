@@ -56,8 +56,18 @@ final class EnrichmentService {
             throw EnrichmentError.noMatchingWorkout
         }
 
-        // 1. Pull streams from Strava
-        let streams = try await stravaService.getActivityStreams(activityId: activity.id)
+        // 1. Pull streams and laps from Strava
+        async let streamsTask = stravaService.getActivityStreams(activityId: activity.id)
+        async let lapsTask = stravaService.getActivityLaps(activityId: activity.id)
+
+        let streams: StravaStreams
+        let laps: [StravaLap]
+        do {
+            streams = try await streamsTask
+            laps = try await lapsTask
+        } catch {
+            throw error
+        }
 
         // 2. Get HR data from HealthKit
         var hrSamples: [HRSample] = []
@@ -74,6 +84,7 @@ final class EnrichmentService {
             activity: activity,
             streams: streams,
             hrSamples: hrSamples,
+            laps: laps.isEmpty ? nil : laps,
             timeShiftSeconds: timeShiftSeconds
         )
 

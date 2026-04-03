@@ -44,3 +44,8 @@ You'll need:
 ## License
 
 MIT
+
+## Privacy
+
+See [PRIVACY.md](PRIVACY.md) for the full privacy policy. TL;DR: all processing is on-device, no data is collected, no server backend exists.
+

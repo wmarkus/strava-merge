@@ -149,6 +149,17 @@ final class StravaService: @unchecked Sendable {
         return parseStreams(streams)
     }
 
+    /// Fetch laps for an activity.
+    func getActivityLaps(activityId: Int) async throws -> [StravaLap] {
+        let token = try await refreshTokenIfNeeded()
+        let url = URL(string: "\(Config.stravaBaseURL)/activities/\(activityId)/laps")!
+        var request = URLRequest(url: url)
+        request.setValue("Bearer \(token)", forHTTPHeaderField: "Authorization")
+
+        let (data, _) = try await session.data(for: request)
+        return try decoder.decode([StravaLap].self, from: data)
+    }
+
     /// Delete an activity.
     func deleteActivity(activityId: Int) async throws {
         let token = try await refreshTokenIfNeeded()

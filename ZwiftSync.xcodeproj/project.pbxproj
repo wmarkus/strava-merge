@@ -37,6 +37,7 @@
 		089C1665E20B329900000406 /* MultipartEncoder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 089C1665E20B329900000306 /* MultipartEncoder.swift */; };
 		089C1665E20B329900000407 /* PresentationContextProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 089C1665E20B329900000307 /* PresentationContextProvider.swift */; };
 		089C1665E20B329900000408 /* MatchConfidence.swift in Sources */ = {isa = PBXBuildFile; fileRef = 089C1665E20B329900000308 /* MatchConfidence.swift */; };
+		089C1665E20B329900000409 /* OverlapCalculator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 089C1665E20B329900000309 /* OverlapCalculator.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -71,6 +72,7 @@
 		089C1665E20B329900000306 /* MultipartEncoder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MultipartEncoder.swift; sourceTree = "<group>"; };
 		089C1665E20B329900000307 /* PresentationContextProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PresentationContextProvider.swift; sourceTree = "<group>"; };
 		089C1665E20B329900000308 /* MatchConfidence.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MatchConfidence.swift; sourceTree = "<group>"; };
+		089C1665E20B329900000309 /* OverlapCalculator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OverlapCalculator.swift; sourceTree = "<group>"; };
 		089C1665E20B329900000120 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		089C1665E20B329900000121 /* ZwiftSync.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = ZwiftSync.entitlements; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -157,6 +159,7 @@
 				089C1665E20B329900000109 /* HealthKitService.swift */,
 				089C1665E20B32990000010A /* TCXGenerator.swift */,
 				089C1665E20B32990000010B /* EnrichmentService.swift */,
+				089C1665E20B329900000309 /* OverlapCalculator.swift */,
 			);
 			path = Services;
 			sourceTree = "<group>";
@@ -305,6 +308,7 @@
 				089C1665E20B329900000406 /* MultipartEncoder.swift in Sources */,
 				089C1665E20B329900000407 /* PresentationContextProvider.swift in Sources */,
 				089C1665E20B329900000408 /* MatchConfidence.swift in Sources */,
+				089C1665E20B329900000409 /* OverlapCalculator.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

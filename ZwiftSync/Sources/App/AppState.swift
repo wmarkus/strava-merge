@@ -6,10 +6,15 @@ final class AppState: ObservableObject {
     @Published var isStravaConnected = false
     @Published var isHealthKitAuthorized = false
 
-    let stravaService = StravaService()
-    let healthKitService = HealthKitService()
+    let stravaService: any StravaServiceProtocol
+    let healthKitService: any HealthKitServiceProtocol
 
-    init() {
+    init(
+        stravaService: any StravaServiceProtocol = StravaService(),
+        healthKitService: any HealthKitServiceProtocol = HealthKitService()
+    ) {
+        self.stravaService = stravaService
+        self.healthKitService = healthKitService
         isStravaConnected = stravaService.hasValidToken
     }
 

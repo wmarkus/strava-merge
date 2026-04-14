@@ -29,6 +29,8 @@
 		089C1665E20B329900000213 /* KeychainService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 089C1665E20B329900000113 /* KeychainService.swift */; };
 		089C1665E20B329900000214 /* PKCEHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 089C1665E20B329900000114 /* PKCEHelper.swift */; };
 		089C1665E20B329900000400 /* StravaServiceProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 089C1665E20B329900000300 /* StravaServiceProtocol.swift */; };
+		089C1665E20B329900000401 /* HealthKitServiceProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 089C1665E20B329900000301 /* HealthKitServiceProtocol.swift */; };
+		089C1665E20B329900000402 /* KeychainServiceProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 089C1665E20B329900000302 /* KeychainServiceProtocol.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -55,6 +57,8 @@
 		089C1665E20B329900000113 /* KeychainService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeychainService.swift; sourceTree = "<group>"; };
 		089C1665E20B329900000114 /* PKCEHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PKCEHelper.swift; sourceTree = "<group>"; };
 		089C1665E20B329900000300 /* StravaServiceProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StravaServiceProtocol.swift; sourceTree = "<group>"; };
+		089C1665E20B329900000301 /* HealthKitServiceProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HealthKitServiceProtocol.swift; sourceTree = "<group>"; };
+		089C1665E20B329900000302 /* KeychainServiceProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeychainServiceProtocol.swift; sourceTree = "<group>"; };
 		089C1665E20B329900000120 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		089C1665E20B329900000121 /* ZwiftSync.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = ZwiftSync.entitlements; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -177,6 +181,8 @@
 			isa = PBXGroup;
 			children = (
 				089C1665E20B329900000300 /* StravaServiceProtocol.swift */,
+				089C1665E20B329900000301 /* HealthKitServiceProtocol.swift */,
+				089C1665E20B329900000302 /* KeychainServiceProtocol.swift */,
 			);
 			path = Protocols;
 			sourceTree = "<group>";
@@ -265,6 +271,8 @@
 				089C1665E20B329900000213 /* KeychainService.swift in Sources */,
 				089C1665E20B329900000214 /* PKCEHelper.swift in Sources */,
 				089C1665E20B329900000400 /* StravaServiceProtocol.swift in Sources */,
+				089C1665E20B329900000401 /* HealthKitServiceProtocol.swift in Sources */,
+				089C1665E20B329900000402 /* KeychainServiceProtocol.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

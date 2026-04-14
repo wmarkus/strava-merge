@@ -2,7 +2,7 @@ import Foundation
 import HealthKit
 
 /// Reads heart rate and workout data from HealthKit.
-final class HealthKitService: @unchecked Sendable {
+final class HealthKitService: HealthKitServiceProtocol, @unchecked Sendable {
     private let healthStore = HKHealthStore()
 
     /// Request authorization to read heart rate and workout data.

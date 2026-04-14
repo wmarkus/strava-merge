@@ -208,9 +208,9 @@ struct EnrichDetailView: View {
     }
 }
 
-// MARK: - Supporting Views
+// MARK: - Reusable Components
 
-struct InfoItem: View {
+private struct InfoItem: View {
     let icon: String
     let label: String
 
@@ -224,7 +224,7 @@ struct InfoItem: View {
     }
 }
 
-struct DataFieldRow: View {
+private struct DataFieldRow: View {
     let icon: String
     let name: String
     let source: String

@@ -1,7 +1,7 @@
 import Foundation
 
 /// Generates TCX XML files from merged Strava streams + HealthKit heart rate data.
-struct TCXGenerator {
+enum TCXGenerator {
 
     /// Build a TCX document combining Strava streams with HealthKit HR samples.
     /// Supports multi-lap activities when laps are provided.
@@ -17,126 +17,127 @@ struct TCXGenerator {
         iso.formatOptions = [.withInternetDateTime, .withFractionalSeconds]
         let hrLookup = HRLookup(samples: hrSamples, timeShiftSeconds: timeShiftSeconds)
 
-        var xml = """
-        <?xml version="1.0" encoding="UTF-8"?>
-        <TrainingCenterDatabase xmlns="http://www.garmin.com/xmlschemas/TrainingCenterDatabase/v2"
-                                xmlns:ns3="http://www.garmin.com/xmlschemas/ActivityExtension/v2">
-          <Activities>
-            <Activity Sport="Biking">
-              <Id>\(iso.string(from: startDate))</Id>
+        var xml = XMLBuilder()
+        xml.line("<?xml version=\"1.0\" encoding=\"UTF-8\"?>")
+        xml.line("<TrainingCenterDatabase xmlns=\"http://www.garmin.com/xmlschemas/TrainingCenterDatabase/v2\"")
+        xml.line("                        xmlns:ns3=\"http://www.garmin.com/xmlschemas/ActivityExtension/v2\">")
+        xml.line("  <Activities>")
+        xml.line("    <Activity Sport=\"Biking\">")
+        xml.line("      <Id>\(iso.string(from: startDate))</Id>")
 
-        """
-
-        // Determine lap boundaries
         let lapRanges = buildLapRanges(laps: laps, streamCount: streams.count)
 
         for (lapIndex, range) in lapRanges.enumerated() {
-            let lapStart: Date
-            let lapDuration: Int
-            let lapDistance: Double
-
-            if let laps, lapIndex < laps.count {
-                lapStart = laps[lapIndex].startDate
-                lapDuration = laps[lapIndex].elapsedTime
-                lapDistance = laps[lapIndex].distance
-            } else {
-                lapStart = startDate.addingTimeInterval(TimeInterval(streams.time[range.lowerBound]))
-                let endIdx = min(range.upperBound - 1, streams.count - 1)
-                lapDuration = streams.time[endIdx] - streams.time[range.lowerBound]
-                lapDistance = distanceForRange(range, streams: streams)
-            }
-
-            xml += """
-                  <Lap StartTime="\(iso.string(from: lapStart))">
-                    <TotalTimeSeconds>\(lapDuration)</TotalTimeSeconds>
-                    <DistanceMeters>\(lapDistance)</DistanceMeters>
-                    <TriggerMethod>Manual</TriggerMethod>
-                    <Track>
-
-            """
-
-            for i in range {
-                guard i < streams.count else { break }
-                xml += buildTrackpoint(
-                    index: i,
-                    startDate: startDate,
-                    streams: streams,
-                    hrLookup: hrLookup,
-                    iso: iso
-                )
-            }
-
-            xml += """
-                    </Track>
-                  </Lap>
-
-            """
+            writeLap(
+                to: &xml,
+                lapIndex: lapIndex,
+                range: range,
+                laps: laps,
+                startDate: startDate,
+                streams: streams,
+                hrLookup: hrLookup,
+                iso: iso
+            )
         }
 
-        xml += """
-            </Activity>
-          </Activities>
-        </TrainingCenterDatabase>
-        """
+        xml.line("    </Activity>")
+        xml.line("  </Activities>")
+        xml.line("</TrainingCenterDatabase>")
 
-        return xml.data(using: .utf8) ?? Data()
+        return xml.data
     }
 
-    // MARK: - Private Helpers
+    // MARK: - Lap Writing
 
-    private static func buildTrackpoint(
+    private static func writeLap(
+        to xml: inout XMLBuilder,
+        lapIndex: Int,
+        range: Range<Int>,
+        laps: [StravaLap]?,
+        startDate: Date,
+        streams: StravaStreams,
+        hrLookup: HRLookup,
+        iso: ISO8601DateFormatter
+    ) {
+        let lapStart: Date
+        let lapDuration: Int
+        let lapDistance: Double
+
+        if let laps, lapIndex < laps.count {
+            lapStart = laps[lapIndex].startDate
+            lapDuration = laps[lapIndex].elapsedTime
+            lapDistance = laps[lapIndex].distance
+        } else {
+            lapStart = startDate.addingTimeInterval(TimeInterval(streams.time[range.lowerBound]))
+            let endIdx = min(range.upperBound - 1, streams.count - 1)
+            lapDuration = streams.time[endIdx] - streams.time[range.lowerBound]
+            lapDistance = distanceForRange(range, streams: streams)
+        }
+
+        xml.line("      <Lap StartTime=\"\(iso.string(from: lapStart))\">")
+        xml.line("        <TotalTimeSeconds>\(lapDuration)</TotalTimeSeconds>")
+        xml.line("        <DistanceMeters>\(lapDistance)</DistanceMeters>")
+        xml.line("        <TriggerMethod>Manual</TriggerMethod>")
+        xml.line("        <Track>")
+
+        for i in range where i < streams.count {
+            writeTrackpoint(to: &xml, index: i, startDate: startDate, streams: streams, hrLookup: hrLookup, iso: iso)
+        }
+
+        xml.line("        </Track>")
+        xml.line("      </Lap>")
+    }
+
+    // MARK: - Trackpoint Writing
+
+    private static func writeTrackpoint(
+        to xml: inout XMLBuilder,
         index i: Int,
         startDate: Date,
         streams: StravaStreams,
         hrLookup: HRLookup,
         iso: ISO8601DateFormatter
-    ) -> String {
+    ) {
         let pointTime = startDate.addingTimeInterval(TimeInterval(streams.time[i]))
-        let timeStr = iso.string(from: pointTime)
 
-        var tp = "          <Trackpoint>\n"
-        tp += "            <Time>\(timeStr)</Time>\n"
+        xml.line("          <Trackpoint>")
+        xml.line("            <Time>\(iso.string(from: pointTime))</Time>")
 
         if let latlng = streams.latlng, i < latlng.count, latlng[i].count == 2 {
-            tp += """
-                        <Position>
-                          <LatitudeDegrees>\(latlng[i][0])</LatitudeDegrees>
-                          <LongitudeDegrees>\(latlng[i][1])</LongitudeDegrees>
-                        </Position>
-
-            """
+            xml.line("            <Position>")
+            xml.line("              <LatitudeDegrees>\(latlng[i][0])</LatitudeDegrees>")
+            xml.line("              <LongitudeDegrees>\(latlng[i][1])</LongitudeDegrees>")
+            xml.line("            </Position>")
         }
 
         if let altitude = streams.altitude, i < altitude.count {
-            tp += "            <AltitudeMeters>\(altitude[i])</AltitudeMeters>\n"
+            xml.line("            <AltitudeMeters>\(altitude[i])</AltitudeMeters>")
         }
 
         if let distance = streams.distance, i < distance.count {
-            tp += "            <DistanceMeters>\(distance[i])</DistanceMeters>\n"
+            xml.line("            <DistanceMeters>\(distance[i])</DistanceMeters>")
         }
 
         if let bpm = hrLookup.nearestBPM(at: pointTime, tolerance: Config.hrAlignmentToleranceSeconds) {
-            tp += "            <HeartRateBpm><Value>\(Int(bpm.rounded()))</Value></HeartRateBpm>\n"
+            xml.line("            <HeartRateBpm><Value>\(Int(bpm.rounded()))</Value></HeartRateBpm>")
         }
 
         if let cadence = streams.cadence, i < cadence.count {
-            tp += "            <Cadence>\(cadence[i])</Cadence>\n"
+            xml.line("            <Cadence>\(cadence[i])</Cadence>")
         }
 
         if let watts = streams.watts, i < watts.count {
-            tp += """
-                        <Extensions>
-                          <ns3:TPX>
-                            <ns3:Watts>\(watts[i])</ns3:Watts>
-                          </ns3:TPX>
-                        </Extensions>
-
-            """
+            xml.line("            <Extensions>")
+            xml.line("              <ns3:TPX>")
+            xml.line("                <ns3:Watts>\(watts[i])</ns3:Watts>")
+            xml.line("              </ns3:TPX>")
+            xml.line("            </Extensions>")
         }
 
-        tp += "          </Trackpoint>\n"
-        return tp
+        xml.line("          </Trackpoint>")
     }
+
+    // MARK: - Helpers
 
     /// Build index ranges for each lap. Falls back to a single lap spanning all points.
     private static func buildLapRanges(laps: [StravaLap]?, streamCount: Int) -> [Range<Int>] {
@@ -153,10 +154,7 @@ struct TCXGenerator {
             }
         }
 
-        if ranges.isEmpty {
-            return [0..<streamCount]
-        }
-        return ranges
+        return ranges.isEmpty ? [0..<streamCount] : ranges
     }
 
     private static func distanceForRange(_ range: Range<Int>, streams: StravaStreams) -> Double {
@@ -165,6 +163,22 @@ struct TCXGenerator {
         let endIdx = min(range.upperBound - 1, distance.count - 1)
         let endDist = endIdx >= 0 ? distance[endIdx] : 0
         return endDist - startDist
+    }
+}
+
+// MARK: - XML Builder
+
+/// Simple string builder for XML output, avoiding fragile string concatenation.
+struct XMLBuilder {
+    private var lines: [String] = []
+
+    mutating func line(_ content: String) {
+        lines.append(content)
+    }
+
+    var data: Data {
+        let joined = lines.joined(separator: "\n")
+        return joined.data(using: .utf8) ?? Data()
     }
 }
 

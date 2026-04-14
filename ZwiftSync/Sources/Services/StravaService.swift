@@ -3,13 +3,18 @@ import AuthenticationServices
 
 /// Handles Strava OAuth and API communication.
 final class StravaService: StravaServiceProtocol, @unchecked Sendable {
-    private let keychainService = KeychainService.shared
-    private let session = URLSession.shared
+    private let keychainService: any KeychainServiceProtocol
+    private let session: URLSession
     private let decoder: JSONDecoder = {
         let d = JSONDecoder()
         d.dateDecodingStrategy = .iso8601
         return d
     }()
+
+    init(keychainService: any KeychainServiceProtocol = KeychainService.shared, session: URLSession = .shared) {
+        self.keychainService = keychainService
+        self.session = session
+    }
 
     var hasValidToken: Bool {
         keychainService.getAccessToken() != nil

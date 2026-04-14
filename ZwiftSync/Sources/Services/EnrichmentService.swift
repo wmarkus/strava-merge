@@ -19,7 +19,7 @@ final class EnrichmentService {
 
     /// Match a Strava activity to the best HealthKit workout.
     func findMatchingWorkout(for activity: StravaActivity) async throws -> EnrichmentCandidate {
-        var bestWorkout: (workout: HKWorkout, confidence: EnrichmentCandidate.MatchConfidence)?
+        var bestWorkout: (workout: HKWorkout, confidence: MatchConfidence)?
 
         for try await workouts in healthKitService.findMatchingWorkouts(start: activity.startDate, end: activity.endDate) {
             for workout in workouts {
@@ -128,7 +128,7 @@ final class EnrichmentService {
 
     // MARK: - Helpers
 
-    private func calculateOverlap(stravaStart: Date, stravaEnd: Date, hkStart: Date, hkEnd: Date) -> EnrichmentCandidate.MatchConfidence {
+    private func calculateOverlap(stravaStart: Date, stravaEnd: Date, hkStart: Date, hkEnd: Date) -> MatchConfidence {
         let overlapStart = max(stravaStart, hkStart)
         let overlapEnd = min(stravaEnd, hkEnd)
         let overlapDuration = max(0, overlapEnd.timeIntervalSince(overlapStart))
@@ -141,16 +141,5 @@ final class EnrichmentService {
         if ratio > 0.5 { return .medium }
         if ratio > 0 { return .low }
         return .noMatch
-    }
-}
-
-extension EnrichmentCandidate.MatchConfidence {
-    var rank: Int {
-        switch self {
-        case .high: 3
-        case .medium: 2
-        case .low: 1
-        case .noMatch: 0
-        }
     }
 }

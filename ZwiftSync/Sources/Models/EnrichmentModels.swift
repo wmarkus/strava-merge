@@ -13,13 +13,6 @@ struct EnrichmentCandidate: Identifiable {
     let stravaActivity: StravaActivity
     let healthKitWorkout: HKWorkout?
     let matchConfidence: MatchConfidence
-
-    enum MatchConfidence {
-        case high       // time overlap > 90%
-        case medium     // time overlap 50-90%
-        case low        // time overlap < 50%
-        case noMatch    // no HealthKit workout found
-    }
 }
 
 /// Result of an enrichment operation.

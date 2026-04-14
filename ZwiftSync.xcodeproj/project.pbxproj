@@ -36,6 +36,7 @@
 		089C1665E20B329900000405 /* EnrichmentError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 089C1665E20B329900000305 /* EnrichmentError.swift */; };
 		089C1665E20B329900000406 /* MultipartEncoder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 089C1665E20B329900000306 /* MultipartEncoder.swift */; };
 		089C1665E20B329900000407 /* PresentationContextProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 089C1665E20B329900000307 /* PresentationContextProvider.swift */; };
+		089C1665E20B329900000408 /* MatchConfidence.swift in Sources */ = {isa = PBXBuildFile; fileRef = 089C1665E20B329900000308 /* MatchConfidence.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -69,6 +70,7 @@
 		089C1665E20B329900000305 /* EnrichmentError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EnrichmentError.swift; sourceTree = "<group>"; };
 		089C1665E20B329900000306 /* MultipartEncoder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MultipartEncoder.swift; sourceTree = "<group>"; };
 		089C1665E20B329900000307 /* PresentationContextProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PresentationContextProvider.swift; sourceTree = "<group>"; };
+		089C1665E20B329900000308 /* MatchConfidence.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MatchConfidence.swift; sourceTree = "<group>"; };
 		089C1665E20B329900000120 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		089C1665E20B329900000121 /* ZwiftSync.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = ZwiftSync.entitlements; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -142,6 +144,7 @@
 				089C1665E20B329900000105 /* StravaAuth.swift */,
 				089C1665E20B329900000106 /* EnrichmentModels.swift */,
 				089C1665E20B329900000107 /* StravaLap.swift */,
+				089C1665E20B329900000308 /* MatchConfidence.swift */,
 				089C1665E20B329900000501 /* Errors */,
 			);
 			path = Models;
@@ -301,6 +304,7 @@
 				089C1665E20B329900000405 /* EnrichmentError.swift in Sources */,
 				089C1665E20B329900000406 /* MultipartEncoder.swift in Sources */,
 				089C1665E20B329900000407 /* PresentationContextProvider.swift in Sources */,
+				089C1665E20B329900000408 /* MatchConfidence.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

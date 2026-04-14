@@ -9,56 +9,66 @@ struct SetupView: View {
         NavigationStack {
             VStack(spacing: 32) {
                 Spacer()
-
-                // App icon area
-                VStack(spacing: 16) {
-                    Image(systemName: "heart.circle.fill")
-                        .font(.system(size: 80))
-                        .foregroundStyle(.orange)
-
-                    Text("ZwiftSync")
-                        .font(.largeTitle.bold())
-
-                    Text("Enrich your Strava rides with\nApple Watch heart rate data")
-                        .font(.body)
-                        .foregroundStyle(.secondary)
-                        .multilineTextAlignment(.center)
-                }
-
+                heroSection
                 Spacer()
-
-                // Setup steps
-                VStack(spacing: 20) {
-                    SetupStep(
-                        number: 1,
-                        title: "Connect Strava",
-                        subtitle: "We'll read your rides and upload enriched ones",
-                        isComplete: appState.isStravaConnected,
-                        action: connectStrava
-                    )
-
-                    SetupStep(
-                        number: 2,
-                        title: "Allow Health Access",
-                        subtitle: "To read heart rate from your Apple Watch workouts",
-                        isComplete: appState.isHealthKitAuthorized,
-                        action: authorizeHealthKit
-                    )
-                }
-                .padding(.horizontal)
-
-                if let error {
-                    Text(error)
-                        .font(.caption)
-                        .foregroundStyle(.red)
-                        .padding(.horizontal)
-                }
-
+                setupSteps
+                errorMessage
                 Spacer()
             }
             .navigationBarTitleDisplayMode(.inline)
         }
     }
+
+    // MARK: - Sections
+
+    private var heroSection: some View {
+        VStack(spacing: 16) {
+            Image(systemName: "heart.circle.fill")
+                .font(.system(size: 80))
+                .foregroundStyle(.orange)
+
+            Text("ZwiftSync")
+                .font(.largeTitle.bold())
+
+            Text("Enrich your Strava rides with\nApple Watch heart rate data")
+                .font(.body)
+                .foregroundStyle(.secondary)
+                .multilineTextAlignment(.center)
+        }
+    }
+
+    private var setupSteps: some View {
+        VStack(spacing: 20) {
+            SetupStep(
+                number: 1,
+                title: "Connect Strava",
+                subtitle: "We'll read your rides and upload enriched ones",
+                isComplete: appState.isStravaConnected,
+                action: connectStrava
+            )
+
+            SetupStep(
+                number: 2,
+                title: "Allow Health Access",
+                subtitle: "To read heart rate from your Apple Watch workouts",
+                isComplete: appState.isHealthKitAuthorized,
+                action: authorizeHealthKit
+            )
+        }
+        .padding(.horizontal)
+    }
+
+    @ViewBuilder
+    private var errorMessage: some View {
+        if let error {
+            Text(error)
+                .font(.caption)
+                .foregroundStyle(.red)
+                .padding(.horizontal)
+        }
+    }
+
+    // MARK: - Actions
 
     private func connectStrava() {
         Task {

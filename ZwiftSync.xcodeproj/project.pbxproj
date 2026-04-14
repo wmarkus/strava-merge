@@ -35,6 +35,7 @@
 		089C1665E20B329900000404 /* HealthKitError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 089C1665E20B329900000304 /* HealthKitError.swift */; };
 		089C1665E20B329900000405 /* EnrichmentError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 089C1665E20B329900000305 /* EnrichmentError.swift */; };
 		089C1665E20B329900000406 /* MultipartEncoder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 089C1665E20B329900000306 /* MultipartEncoder.swift */; };
+		089C1665E20B329900000407 /* PresentationContextProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 089C1665E20B329900000307 /* PresentationContextProvider.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -67,6 +68,7 @@
 		089C1665E20B329900000304 /* HealthKitError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HealthKitError.swift; sourceTree = "<group>"; };
 		089C1665E20B329900000305 /* EnrichmentError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EnrichmentError.swift; sourceTree = "<group>"; };
 		089C1665E20B329900000306 /* MultipartEncoder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MultipartEncoder.swift; sourceTree = "<group>"; };
+		089C1665E20B329900000307 /* PresentationContextProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PresentationContextProvider.swift; sourceTree = "<group>"; };
 		089C1665E20B329900000120 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		089C1665E20B329900000121 /* ZwiftSync.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = ZwiftSync.entitlements; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -183,6 +185,7 @@
 				089C1665E20B329900000113 /* KeychainService.swift */,
 				089C1665E20B329900000114 /* PKCEHelper.swift */,
 				089C1665E20B329900000306 /* MultipartEncoder.swift */,
+				089C1665E20B329900000307 /* PresentationContextProvider.swift */,
 			);
 			path = Utilities;
 			sourceTree = "<group>";
@@ -297,6 +300,7 @@
 				089C1665E20B329900000404 /* HealthKitError.swift in Sources */,
 				089C1665E20B329900000405 /* EnrichmentError.swift in Sources */,
 				089C1665E20B329900000406 /* MultipartEncoder.swift in Sources */,
+				089C1665E20B329900000407 /* PresentationContextProvider.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

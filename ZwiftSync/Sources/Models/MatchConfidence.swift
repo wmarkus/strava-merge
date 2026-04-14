@@ -1,7 +1,7 @@
 import Foundation
 
 /// Confidence level of a HealthKit workout matching a Strava activity.
-enum MatchConfidence: Comparable {
+enum MatchConfidence: Comparable, Sendable {
     case noMatch
     case low        // time overlap < 50%
     case medium     // time overlap 50–90%

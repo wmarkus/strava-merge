@@ -2,7 +2,7 @@ import Foundation
 import HealthKit
 
 /// A heart rate sample from HealthKit.
-struct HRSample {
+struct HRSample: Equatable {
     let timestamp: Date
     let bpm: Double
 }

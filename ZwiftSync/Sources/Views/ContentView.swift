@@ -6,7 +6,12 @@ struct ContentView: View {
     var body: some View {
         Group {
             if appState.isStravaConnected {
-                ActivityListView()
+                ActivityListView(
+                    enrichmentService: EnrichmentService(
+                        stravaService: appState.stravaService,
+                        healthKitService: appState.healthKitService
+                    )
+                )
             } else {
                 SetupView()
             }

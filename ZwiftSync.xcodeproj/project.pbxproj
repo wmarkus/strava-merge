@@ -28,6 +28,16 @@
 		089C1665E20B329900000212 /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 089C1665E20B329900000112 /* SettingsView.swift */; };
 		089C1665E20B329900000213 /* KeychainService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 089C1665E20B329900000113 /* KeychainService.swift */; };
 		089C1665E20B329900000214 /* PKCEHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 089C1665E20B329900000114 /* PKCEHelper.swift */; };
+		089C1665E20B329900000400 /* StravaServiceProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 089C1665E20B329900000300 /* StravaServiceProtocol.swift */; };
+		089C1665E20B329900000401 /* HealthKitServiceProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 089C1665E20B329900000301 /* HealthKitServiceProtocol.swift */; };
+		089C1665E20B329900000402 /* KeychainServiceProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 089C1665E20B329900000302 /* KeychainServiceProtocol.swift */; };
+		089C1665E20B329900000403 /* StravaError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 089C1665E20B329900000303 /* StravaError.swift */; };
+		089C1665E20B329900000404 /* HealthKitError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 089C1665E20B329900000304 /* HealthKitError.swift */; };
+		089C1665E20B329900000405 /* EnrichmentError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 089C1665E20B329900000305 /* EnrichmentError.swift */; };
+		089C1665E20B329900000406 /* MultipartEncoder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 089C1665E20B329900000306 /* MultipartEncoder.swift */; };
+		089C1665E20B329900000407 /* PresentationContextProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 089C1665E20B329900000307 /* PresentationContextProvider.swift */; };
+		089C1665E20B329900000408 /* MatchConfidence.swift in Sources */ = {isa = PBXBuildFile; fileRef = 089C1665E20B329900000308 /* MatchConfidence.swift */; };
+		089C1665E20B329900000409 /* OverlapCalculator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 089C1665E20B329900000309 /* OverlapCalculator.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -53,6 +63,16 @@
 		089C1665E20B329900000112 /* SettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsView.swift; sourceTree = "<group>"; };
 		089C1665E20B329900000113 /* KeychainService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeychainService.swift; sourceTree = "<group>"; };
 		089C1665E20B329900000114 /* PKCEHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PKCEHelper.swift; sourceTree = "<group>"; };
+		089C1665E20B329900000300 /* StravaServiceProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StravaServiceProtocol.swift; sourceTree = "<group>"; };
+		089C1665E20B329900000301 /* HealthKitServiceProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HealthKitServiceProtocol.swift; sourceTree = "<group>"; };
+		089C1665E20B329900000302 /* KeychainServiceProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeychainServiceProtocol.swift; sourceTree = "<group>"; };
+		089C1665E20B329900000303 /* StravaError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StravaError.swift; sourceTree = "<group>"; };
+		089C1665E20B329900000304 /* HealthKitError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HealthKitError.swift; sourceTree = "<group>"; };
+		089C1665E20B329900000305 /* EnrichmentError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EnrichmentError.swift; sourceTree = "<group>"; };
+		089C1665E20B329900000306 /* MultipartEncoder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MultipartEncoder.swift; sourceTree = "<group>"; };
+		089C1665E20B329900000307 /* PresentationContextProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PresentationContextProvider.swift; sourceTree = "<group>"; };
+		089C1665E20B329900000308 /* MatchConfidence.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MatchConfidence.swift; sourceTree = "<group>"; };
+		089C1665E20B329900000309 /* OverlapCalculator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OverlapCalculator.swift; sourceTree = "<group>"; };
 		089C1665E20B329900000120 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		089C1665E20B329900000121 /* ZwiftSync.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = ZwiftSync.entitlements; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -99,6 +119,7 @@
 			children = (
 				089C1665E20B329900000011 /* App */,
 				089C1665E20B329900000012 /* Models */,
+				089C1665E20B329900000500 /* Protocols */,
 				089C1665E20B329900000013 /* Services */,
 				089C1665E20B329900000014 /* ViewModels */,
 				089C1665E20B329900000015 /* Views */,
@@ -125,6 +146,8 @@
 				089C1665E20B329900000105 /* StravaAuth.swift */,
 				089C1665E20B329900000106 /* EnrichmentModels.swift */,
 				089C1665E20B329900000107 /* StravaLap.swift */,
+				089C1665E20B329900000308 /* MatchConfidence.swift */,
+				089C1665E20B329900000501 /* Errors */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -136,6 +159,7 @@
 				089C1665E20B329900000109 /* HealthKitService.swift */,
 				089C1665E20B32990000010A /* TCXGenerator.swift */,
 				089C1665E20B32990000010B /* EnrichmentService.swift */,
+				089C1665E20B329900000309 /* OverlapCalculator.swift */,
 			);
 			path = Services;
 			sourceTree = "<group>";
@@ -166,8 +190,20 @@
 			children = (
 				089C1665E20B329900000113 /* KeychainService.swift */,
 				089C1665E20B329900000114 /* PKCEHelper.swift */,
+				089C1665E20B329900000306 /* MultipartEncoder.swift */,
+				089C1665E20B329900000307 /* PresentationContextProvider.swift */,
 			);
 			path = Utilities;
+			sourceTree = "<group>";
+		};
+		089C1665E20B329900000500 /* Protocols */ = {
+			isa = PBXGroup;
+			children = (
+				089C1665E20B329900000300 /* StravaServiceProtocol.swift */,
+				089C1665E20B329900000301 /* HealthKitServiceProtocol.swift */,
+				089C1665E20B329900000302 /* KeychainServiceProtocol.swift */,
+			);
+			path = Protocols;
 			sourceTree = "<group>";
 		};
 		089C1665E20B329900000017 /* Resources */ = {
@@ -175,6 +211,16 @@
 			children = (
 			);
 			path = Resources;
+			sourceTree = "<group>";
+		};
+		089C1665E20B329900000501 /* Errors */ = {
+			isa = PBXGroup;
+			children = (
+				089C1665E20B329900000303 /* StravaError.swift */,
+				089C1665E20B329900000304 /* HealthKitError.swift */,
+				089C1665E20B329900000305 /* EnrichmentError.swift */,
+			);
+			path = Errors;
 			sourceTree = "<group>";
 		};
 		089C1665E20B329900000018 /* Tests */ = {
@@ -253,6 +299,16 @@
 				089C1665E20B329900000212 /* SettingsView.swift in Sources */,
 				089C1665E20B329900000213 /* KeychainService.swift in Sources */,
 				089C1665E20B329900000214 /* PKCEHelper.swift in Sources */,
+				089C1665E20B329900000400 /* StravaServiceProtocol.swift in Sources */,
+				089C1665E20B329900000401 /* HealthKitServiceProtocol.swift in Sources */,
+				089C1665E20B329900000402 /* KeychainServiceProtocol.swift in Sources */,
+				089C1665E20B329900000403 /* StravaError.swift in Sources */,
+				089C1665E20B329900000404 /* HealthKitError.swift in Sources */,
+				089C1665E20B329900000405 /* EnrichmentError.swift in Sources */,
+				089C1665E20B329900000406 /* MultipartEncoder.swift in Sources */,
+				089C1665E20B329900000407 /* PresentationContextProvider.swift in Sources */,
+				089C1665E20B329900000408 /* MatchConfidence.swift in Sources */,
+				089C1665E20B329900000409 /* OverlapCalculator.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

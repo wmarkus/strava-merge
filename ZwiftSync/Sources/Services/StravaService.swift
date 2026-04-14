@@ -2,14 +2,19 @@ import Foundation
 import AuthenticationServices
 
 /// Handles Strava OAuth and API communication.
-final class StravaService: @unchecked Sendable {
-    private let keychainService = KeychainService.shared
-    private let session = URLSession.shared
+final class StravaService: StravaServiceProtocol, @unchecked Sendable {
+    private let keychainService: any KeychainServiceProtocol
+    private let session: URLSession
     private let decoder: JSONDecoder = {
         let d = JSONDecoder()
         d.dateDecodingStrategy = .iso8601
         return d
     }()
+
+    init(keychainService: any KeychainServiceProtocol = KeychainService.shared, session: URLSession = .shared) {
+        self.keychainService = keychainService
+        self.session = session
+    }
 
     var hasValidToken: Bool {
         keychainService.getAccessToken() != nil
@@ -180,26 +185,19 @@ final class StravaService: @unchecked Sendable {
         let token = try await refreshTokenIfNeeded()
         let url = URL(string: "\(Config.stravaBaseURL)/uploads")!
 
-        let boundary = UUID().uuidString
+        var encoder = MultipartEncoder()
+        encoder.addField(name: "data_type", value: "tcx")
+        encoder.addField(name: "activity_type", value: activityType)
+        if let name {
+            encoder.addField(name: "name", value: name)
+        }
+        encoder.addFile(name: "file", filename: "activity.tcx", mimeType: "application/xml", data: tcxData)
+
         var request = URLRequest(url: url)
         request.httpMethod = "POST"
         request.setValue("Bearer \(token)", forHTTPHeaderField: "Authorization")
-        request.setValue("multipart/form-data; boundary=\(boundary)", forHTTPHeaderField: "Content-Type")
-
-        var body = Data()
-        // data_type
-        body.appendMultipart(boundary: boundary, name: "data_type", value: "tcx")
-        // activity_type
-        body.appendMultipart(boundary: boundary, name: "activity_type", value: activityType)
-        // name
-        if let name {
-            body.appendMultipart(boundary: boundary, name: "name", value: name)
-        }
-        // file
-        body.appendMultipartFile(boundary: boundary, name: "file", filename: "activity.tcx", mimeType: "application/xml", data: tcxData)
-        body.append("--\(boundary)--\r\n".data(using: .utf8)!)
-
-        request.httpBody = body
+        request.setValue(encoder.contentType, forHTTPHeaderField: "Content-Type")
+        request.httpBody = encoder.finalize()
 
         let (responseData, _) = try await session.data(for: request)
         return try decoder.decode(StravaUploadResponse.self, from: responseData)
@@ -282,60 +280,5 @@ final class StravaService: @unchecked Sendable {
             velocitySmooth: velocitySmooth,
             heartrate: heartrate
         )
-    }
-}
-
-// MARK: - Errors
-
-enum StravaError: LocalizedError {
-    case authFailed
-    case notAuthenticated
-    case deleteFailed
-    case uploadFailed(String)
-    case uploadTimeout
-    case updateFailed
-
-    var errorDescription: String? {
-        switch self {
-        case .authFailed: "Strava authorization failed"
-        case .notAuthenticated: "Not connected to Strava"
-        case .deleteFailed: "Failed to delete activity"
-        case .uploadFailed(let msg): "Upload failed: \(msg)"
-        case .uploadTimeout: "Upload timed out"
-        case .updateFailed: "Failed to update activity metadata"
-        }
-    }
-}
-
-// MARK: - Presentation Context
-
-@MainActor
-final class PresentationContextProvider: NSObject, ASWebAuthenticationPresentationContextProviding {
-    static let shared = PresentationContextProvider()
-
-    func presentationAnchor(for session: ASWebAuthenticationSession) -> ASPresentationAnchor {
-        guard let scene = UIApplication.shared.connectedScenes.first as? UIWindowScene,
-              let window = scene.windows.first else {
-            return ASPresentationAnchor()
-        }
-        return window
-    }
-}
-
-// MARK: - Multipart Helpers
-
-extension Data {
-    mutating func appendMultipart(boundary: String, name: String, value: String) {
-        append("--\(boundary)\r\n".data(using: .utf8)!)
-        append("Content-Disposition: form-data; name=\"\(name)\"\r\n\r\n".data(using: .utf8)!)
-        append("\(value)\r\n".data(using: .utf8)!)
-    }
-
-    mutating func appendMultipartFile(boundary: String, name: String, filename: String, mimeType: String, data: Data) {
-        append("--\(boundary)\r\n".data(using: .utf8)!)
-        append("Content-Disposition: form-data; name=\"\(name)\"; filename=\"\(filename)\"\r\n".data(using: .utf8)!)
-        append("Content-Type: \(mimeType)\r\n\r\n".data(using: .utf8)!)
-        append(data)
-        append("\r\n".data(using: .utf8)!)
     }
 }

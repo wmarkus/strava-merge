@@ -3,10 +3,10 @@ import Foundation
 /// Orchestrates the full enrichment pipeline:
 /// pull streams → match HR → merge → delete old → upload new → copy metadata.
 final class EnrichmentService {
-    private let stravaService: StravaService
-    private let healthKitService: HealthKitService
+    private let stravaService: any StravaServiceProtocol
+    private let healthKitService: any HealthKitServiceProtocol
 
-    init(stravaService: StravaService, healthKitService: HealthKitService) {
+    init(stravaService: any StravaServiceProtocol, healthKitService: any HealthKitServiceProtocol) {
         self.stravaService = stravaService
         self.healthKitService = healthKitService
     }
@@ -19,19 +19,19 @@ final class EnrichmentService {
 
     /// Match a Strava activity to the best HealthKit workout.
     func findMatchingWorkout(for activity: StravaActivity) async throws -> EnrichmentCandidate {
-        var bestWorkout: (workout: HKWorkout, confidence: EnrichmentCandidate.MatchConfidence)?
+        var bestWorkout: (workout: HKWorkout, confidence: MatchConfidence)?
 
         for try await workouts in healthKitService.findMatchingWorkouts(start: activity.startDate, end: activity.endDate) {
             for workout in workouts {
-                let confidence = calculateOverlap(
-                    stravaStart: activity.startDate,
-                    stravaEnd: activity.endDate,
-                    hkStart: workout.startDate,
-                    hkEnd: workout.endDate
+                let confidence = OverlapCalculator.confidence(
+                    activityStart: activity.startDate,
+                    activityEnd: activity.endDate,
+                    workoutStart: workout.startDate,
+                    workoutEnd: workout.endDate
                 )
 
                 if let current = bestWorkout {
-                    if confidence.rank > current.confidence.rank {
+                    if confidence > current.confidence {
                         bestWorkout = (workout, confidence)
                     }
                 } else {
@@ -124,47 +124,5 @@ final class EnrichmentService {
             success: true,
             error: nil
         )
-    }
-
-    // MARK: - Helpers
-
-    private func calculateOverlap(stravaStart: Date, stravaEnd: Date, hkStart: Date, hkEnd: Date) -> EnrichmentCandidate.MatchConfidence {
-        let overlapStart = max(stravaStart, hkStart)
-        let overlapEnd = min(stravaEnd, hkEnd)
-        let overlapDuration = max(0, overlapEnd.timeIntervalSince(overlapStart))
-        let stravaDuration = stravaEnd.timeIntervalSince(stravaStart)
-
-        guard stravaDuration > 0 else { return .noMatch }
-
-        let ratio = overlapDuration / stravaDuration
-        if ratio > 0.9 { return .high }
-        if ratio > 0.5 { return .medium }
-        if ratio > 0 { return .low }
-        return .noMatch
-    }
-}
-
-extension EnrichmentCandidate.MatchConfidence {
-    var rank: Int {
-        switch self {
-        case .high: 3
-        case .medium: 2
-        case .low: 1
-        case .noMatch: 0
-        }
-    }
-}
-
-enum EnrichmentError: LocalizedError {
-    case noMatchingWorkout
-    case noHeartRateData
-    case uploadDidNotProduceActivity
-
-    var errorDescription: String? {
-        switch self {
-        case .noMatchingWorkout: "No matching Apple Watch workout found"
-        case .noHeartRateData: "No heart rate data available for this workout"
-        case .uploadDidNotProduceActivity: "Upload completed but no activity was created"
-        }
     }
 }

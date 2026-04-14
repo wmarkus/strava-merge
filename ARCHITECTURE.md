@@ -1,8 +1,17 @@
-# ZwiftSync — Architecture
+#  ArchitectureZwiftSync 
 
 ## Overview
 
 A pure SwiftUI iOS app with no backend. All data stays on-device: Strava is queried via OAuth, HealthKit provides heart rate data, and the merged activity is re-uploaded to Strava as a TCX file. No server, no database, no cloud storage.
+
+---
+
+## Design Principles
+
+- **Protocol-oriented**: Every service has a protocol (`StravaServiceProtocol`, `HealthKitServiceProtocol`, `KeychainServiceProtocol`) enabling dependency injection and testability.
+- **Red-Green TDD**: All business logic has dedicated unit tests. Tests were written first, then code was made to pass.
+- **Single responsibility**: Errors, overlap calculation, multipart encoding, and XML building each live in their own files.
+- **No backend**: 100% on-device processing. Strava tokens stored in iOS Keychain.
 
 ---
 
@@ -14,17 +23,17 @@ flowchart TD
     B --> C["StravaService\ngetLaps(activityId)"]
     A --> D["HealthKitService\nfindMatchingWorkouts(start, end)"]
 
-    B & C & D --> E["EnrichmentService\ncalculateOverlap → best match"]
+ best match"]
 
     E --> F{Match confidence}
     F -- "exact / good" --> G["HealthKitService\ngetHeartRateSamples(workout)"]
     F -- "noMatch" --> Z["Show error: no HealthKit match"]
 
-    G --> H["TCXGenerator\nmerge streams + HR samples → TCX"]
-    H --> I["StravaService\ndeleteActivity(old)"]
-    I --> J["StravaService\nuploadTCX(new)"]
-    J --> K["StravaService\nupdateActivity(copy metadata)"]
-    K --> L["Done — enriched activity on Strava"]
+ TCX"]
+    H --> I["StravaService\nuploadTCX(new)"]
+    I --> J["StravaService\nupdateActivity(copy metadata)"]
+    J --> K["StravaService\ndeleteActivity(old)"]
+    K --> L[" enriched activity on Strava"]Done 
 ```
 
 ---
@@ -33,34 +42,60 @@ flowchart TD
 
 ```
 ZwiftSync/Sources/
-├── App/
-│   ├── ZwiftSyncApp.swift      # App entry point, environment setup
-│   ├── AppState.swift          # Global state (auth, active account)
-│   └── Config.swift            # Strava client ID, redirect URI
-├── Models/
-│   ├── StravaActivity.swift    # Activity, VirtualRide filter, hasHeartrate
-│   ├── StravaStreams.swift      # Time, distance, watts, cadence, speed streams
-│   ├── StravaLap.swift         # Lap boundaries for TCX lap segments
-│   ├── StravaAuth.swift        # OAuth token model
-│   └── EnrichmentModels.swift  # EnrichmentCandidate, MatchConfidence, EnrichmentResult
-├── Services/
-│   ├── StravaService.swift     # OAuth + all Strava API calls
-│   ├── HealthKitService.swift  # HKWorkout query + per-second HR samples
-│   ├── EnrichmentService.swift # Pipeline orchestrator (findEnrichable, enrich)
-│   └── TCXGenerator.swift      # Builds TCX XML from merged streams + HR
-├── ViewModels/
-│   ├── ActivityListViewModel.swift  # Loads + filters enrichable activities
-│   └── EnrichViewModel.swift        # Drives enrichment UI + time shift
-├── Views/
-│   ├── ContentView.swift       # Root navigation
-│   ├── ActivityListView.swift  # List of enrichable activities
-│   ├── EnrichDetailView.swift  # Confidence badge, enrich button, time shift
-│   ├── SetupView.swift         # First-run Strava OAuth flow
-│   └── SettingsView.swift      # Disconnect, re-auth
-└── Utilities/
-    ├── KeychainService.swift   # Secure token storage (Keychain)
-    └── PKCEHelper.swift        # PKCE code verifier + challenge for OAuth
+ App/
+ ZwiftSyncApp.swift          # App entry point, environment setup   
+ AppState.swift              # Global state with protocol-based DI   
+ Config.swift                # Strava client ID, redirect URI, tolerances   
+ Models/
+ StravaActivity.swift        # Activity model (Codable, Equatable, Identifiable)   
+ StravaStreams.swift          # Time-series streams with AnyCodableArray   
+ StravaLap.swift             # Lap boundaries for TCX segments   
+ StravaAuth.swift            # OAuth token, upload, and update models   
+ EnrichmentModels.swift      # HRSample, EnrichmentCandidate, EnrichmentResult   
+ MatchConfidence.swift       # Comparable enum: noMatch < low < medium < high   
+ Errors/   
+ StravaError.swift       # API-level errors       
+ HealthKitError.swift    # HealthKit availability/auth errors       
+ EnrichmentError.swift   # Pipeline-level errors       
+ Protocols/
+ StravaServiceProtocol.swift     # All Strava API methods   
+ HealthKitServiceProtocol.swift  # HealthKit query methods   
+ KeychainServiceProtocol.swift   # Token storage methods   
+ Services/
+ StravaService.swift         # Strava API + OAuth (injectable deps)   
+ HealthKitService.swift      # HKWorkout + HR queries   
+ EnrichmentService.swift     # Pipeline orchestrator (protocol deps)   
+ TCXGenerator.swift          # XMLBuilder-based TCX generation   
+ MatchConfidence
+ ViewModels/
+ ActivityListViewModel.swift # Loads + filters enrichable activities   
+ EnrichViewModel.swift       # State machine for enrichment UI   
+ Views/
+ ContentView.swift           # Root navigation with DI   
+ ActivityListView.swift      # Activity list with DI-injected service   
+ EnrichDetailView.swift      # Confidence badge, time shift, enrich button   
+ SetupView.swift             # First-run OAuth flow   
+ SettingsView.swift          # Connections, about, disconnect   
+ Utilities/
+ KeychainService.swift       # iOS Keychain wrapper    
+ PKCEHelper.swift            # PKCE code verifier + challenge    
+ MultipartEncoder.swift      # Struct-based multipart/form-data builder    
+ PresentationContextProvider.swift  # ASWebAuthentication anchor    
 ```
+
+---
+
+## Testing Strategy
+
+| Layer | Test Count | Approach |
+|-------|-----------|----------|
+| Models | 6 test files | JSON decoding, computed properties, Equatable |
+| Services | 5 test files | Mock protocols, pure function tests |
+| ViewModels | 2 test files | State machine transitions, @MainActor |
+| Utilities | 4 test files | Binary search, multipart encoding, PKCE |
+| App | 2 test files | DI, state transitions, config validation |
+
+All services tested via protocol  no real network, HealthKit, or Keychain access in tests.mocks 
 
 ---
 
@@ -71,8 +106,8 @@ sequenceDiagram
     participant UI as SwiftUI View
     participant VM as ViewModel
     participant ES as EnrichmentService
-    participant SS as StravaService
-    participant HK as HealthKitService
+    participant SS as StravaServiceProtocol
+    participant HK as HealthKitServiceProtocol
     participant TCX as TCXGenerator
 
     UI->>VM: enrich(candidate)
@@ -82,43 +117,34 @@ sequenceDiagram
         ES->>SS: getLaps(activityId)
     end
     ES->>HK: getHeartRateSamples(workout)
-    HK-->>ES: [HKQuantitySample] at 1s resolution
+    HK-->>ES: [HRSample] at 1s resolution
     ES->>TCX: generate(streams, laps, hrSamples)
     TCX-->>ES: Data (TCX XML)
-    ES->>SS: deleteActivity(old id)
     ES->>SS: uploadTCX(data)
     SS-->>ES: new activity id
-    ES->>SS: updateActivity(copy name, description, gear)
+    ES->>SS: updateActivity(copy metadata)
+    ES->>SS: deleteActivity(old id)
     ES-->>VM: EnrichmentResult.success
     VM-->>UI: show success state
 ```
 
 ---
 
-## Auth Flow
+## Key Design Decisions
 
-OAuth 2.0 with PKCE (no client secret on-device):
+**Protocol-based DI.** Every external dependency is abstracted behind a protocol. Services accept protocols in their initializers with production defaults. Tests inject mock implementations.
 
-```
-App → open Strava auth URL with code_challenge
-Strava → redirect to zwiftsync:// with code
-App → exchange code + code_verifier for tokens
-Tokens → stored in iOS Keychain (not UserDefaults)
-```
+**No backend.** All processing runs on the iPhone. No data ever leaves the device.
 
-Token refresh is handled transparently in `StravaService` before any API call.
+ delete original (safe order).
 
----
+**Per-second heart rate.** `HRLookup` uses binary search for O(log n) nearest-neighbor matching of Apple Watch samples.
 
-## TCX Generation
+**XMLBuilder.** TCX generation uses a simple builder struct instead of raw string interpolation.
 
-The `TCXGenerator` produces a Garmin TCX file (XML) that Strava accepts for upload:
-- One `<Lap>` per Strava lap boundary
-- `<Track>` with one `<Trackpoint>` per second
-- Each trackpoint: time, distance, watts, cadence, speed, heart rate
-- Heart rate samples from HealthKit are interpolated/aligned to the Zwift time axis
+**OverlapCalculator.** Time overlap calculation extracted as a pure function with comprehensive boundary tests.
 
-This is the only way to replace an existing Strava activity with enriched data — Strava's API doesn't support patching heart rate streams directly.
+**PKCE, no client secret.** iOS apps can't securely store a client secret. PKCE makes OAuth secure without one.
 
 ---
 
@@ -129,23 +155,9 @@ This is the only way to replace an existing Strava activity with enriched data �
 | Language | Swift 6 |
 | UI | SwiftUI |
 | Platform | iOS 17+ |
-| Heart rate | HealthKit (`HKWorkout`, `HKQuantitySample`) |
-| Strava integration | Strava API v3 (REST) |
-| Auth | OAuth 2.0 with PKCE |
+| Heart rate | HealthKit |
+| Strava | API v3, OAuth 2.0 with PKCE |
+| Upload format | TCX (Garmin/Strava standard) |
 | Token storage | iOS Keychain |
-| Activity upload | TCX file format (Garmin/Strava standard) |
-| Concurrency | Swift async/await + `async let` for parallel fetches |
-
----
-
-## Key Design Decisions
-
-**No backend.** All processing runs on the iPhone. Strava tokens live in the Keychain. No data ever leaves the device to a third-party server. This is the entire privacy story.
-
-**Delete + re-upload instead of patch.** Strava's API doesn't support replacing heart rate data on an existing activity. The only way is: delete the auto-uploaded Zwift activity, upload a new TCX with the merged data, then copy the original metadata (name, description, gear) to the new activity.
-
-**Per-second heart rate from HealthKit.** HealthKit stores Apple Watch heart rate at ~1 sample/second during a workout. This resolution is preserved in the TCX output, giving Strava a complete heart rate graph instead of interpolated averages.
-
-**PKCE, no client secret.** iOS apps can't securely store a client secret. PKCE (code verifier + challenge) makes the OAuth flow secure without one.
-
-**Time shift for clock drift.** Zwift and Apple Watch sometimes start/stop at slightly different times. The `timeShiftSeconds` parameter adjusts the HR sample alignment to compensate.
+| DI | Protocol-based constructor injection |
+| Testing | XCTest + protocol mocks |

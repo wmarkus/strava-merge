@@ -127,51 +127,17 @@ final class TCXGeneratorTests: XCTestCase {
     // MARK: - Helpers
 
     private func makeActivity(
-        startDate: Date = Date(timeIntervalSince1970: 1_700_000_000)
+        startDate: Date = TestFixtures.baseDate
     ) -> StravaActivity {
-        StravaActivity(
-            id: 12345,
-            name: "Test Zwift Ride",
-            type: "VirtualRide",
-            sportType: "VirtualRide",
-            startDate: startDate,
-            elapsedTime: 3600,
-            movingTime: 3500,
-            distance: 30000,
-            hasHeartrate: false,
-            averageHeartrate: nil,
-            maxHeartrate: nil,
-            averageWatts: 200,
-            kilojoules: 720,
-            averageCadence: 85,
-            gearId: nil,
-            description: nil,
-            commute: false,
-            trainer: true,
-            externalId: nil
-        )
+        TestFixtures.makeActivity(startDate: startDate)
     }
 
     private func makeStreams(count: Int) -> StravaStreams {
-        StravaStreams(
-            time: (0..<count).map { $0 },
-            latlng: (0..<count).map { [Double($0) * 0.001, Double($0) * 0.001] },
-            altitude: (0..<count).map { Double($0) * 0.5 },
-            watts: (0..<count).map { 180 + $0 * 2 },
-            cadence: (0..<count).map { 80 + $0 },
-            distance: (0..<count).map { Double($0) * 10.0 },
-            velocitySmooth: (0..<count).map { 8.0 + Double($0) * 0.1 },
-            heartrate: nil
-        )
+        TestFixtures.makeStreams(count: count)
     }
 
     private func makeHRSamples(startDate: Date, count: Int, baseBPM: Double = 140) -> [HRSample] {
-        (0..<count).map { i in
-            HRSample(
-                timestamp: startDate.addingTimeInterval(TimeInterval(i)),
-                bpm: baseBPM + Double(i)
-            )
-        }
+        TestFixtures.makeHRSamples(startDate: startDate, count: count, baseBPM: baseBPM)
     }
 
     private func makeStavaLap(
@@ -180,21 +146,7 @@ final class TCXGeneratorTests: XCTestCase {
         startDate: Date,
         elapsed: Int
     ) -> StravaLap {
-        StravaLap(
-            id: startIndex,
-            name: "Lap \(startIndex)",
-            elapsedTime: elapsed,
-            movingTime: elapsed,
-            startDate: startDate,
-            distance: Double((endIndex - startIndex) * 10),
-            startIndex: startIndex,
-            endIndex: endIndex,
-            averageWatts: 200,
-            averageCadence: 85,
-            averageHeartrate: nil,
-            maxHeartrate: nil,
-            totalElevationGain: 5
-        )
+        TestFixtures.makeLap(id: startIndex, startIndex: startIndex, endIndex: endIndex, startDate: startDate, elapsed: elapsed)
     }
 }
 

@@ -2,7 +2,7 @@ import Foundation
 import Security
 
 /// Simple Keychain wrapper for storing Strava OAuth tokens.
-final class KeychainService: Sendable {
+final class KeychainService: KeychainServiceProtocol, Sendable {
     static let shared = KeychainService()
     private let service = "com.zwiftsync.strava"
 

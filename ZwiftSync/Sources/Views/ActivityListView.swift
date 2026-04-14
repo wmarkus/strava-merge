@@ -4,14 +4,8 @@ struct ActivityListView: View {
     @EnvironmentObject var appState: AppState
     @StateObject private var viewModel: ActivityListViewModel
 
-    init() {
-        // Initialize with a placeholder; actual service injected in onAppear
-        _viewModel = StateObject(wrappedValue: ActivityListViewModel(
-            enrichmentService: EnrichmentService(
-                stravaService: StravaService(),
-                healthKitService: HealthKitService()
-            )
-        ))
+    init(enrichmentService: EnrichmentService) {
+        _viewModel = StateObject(wrappedValue: ActivityListViewModel(enrichmentService: enrichmentService))
     }
 
     var body: some View {
@@ -123,25 +117,16 @@ struct ActivityRow: View {
 // MARK: - Match Badge
 
 struct MatchBadge: View {
-    let confidence: EnrichmentCandidate.MatchConfidence
+    let confidence: MatchConfidence
 
     var body: some View {
-        Text(label)
+        Text(confidence.label)
             .font(.caption2.bold())
             .padding(.horizontal, 8)
             .padding(.vertical, 2)
             .background(color.opacity(0.2))
             .foregroundStyle(color)
             .clipShape(Capsule())
-    }
-
-    private var label: String {
-        switch confidence {
-        case .high: "Match ✓"
-        case .medium: "Partial"
-        case .low: "Weak"
-        case .noMatch: "No Match"
-        }
     }
 
     private var color: Color {

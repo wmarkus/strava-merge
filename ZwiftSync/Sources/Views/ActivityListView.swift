@@ -4,14 +4,8 @@ struct ActivityListView: View {
     @EnvironmentObject var appState: AppState
     @StateObject private var viewModel: ActivityListViewModel
 
-    init() {
-        // Initialize with a placeholder; actual service injected in onAppear
-        _viewModel = StateObject(wrappedValue: ActivityListViewModel(
-            enrichmentService: EnrichmentService(
-                stravaService: StravaService(),
-                healthKitService: HealthKitService()
-            )
-        ))
+    init(enrichmentService: EnrichmentService) {
+        _viewModel = StateObject(wrappedValue: ActivityListViewModel(enrichmentService: enrichmentService))
     }
 
     var body: some View {

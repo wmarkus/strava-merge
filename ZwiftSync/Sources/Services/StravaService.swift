@@ -2,7 +2,7 @@ import Foundation
 import AuthenticationServices
 
 /// Handles Strava OAuth and API communication.
-final class StravaService: @unchecked Sendable {
+final class StravaService: StravaServiceProtocol, @unchecked Sendable {
     private let keychainService = KeychainService.shared
     private let session = URLSession.shared
     private let decoder: JSONDecoder = {

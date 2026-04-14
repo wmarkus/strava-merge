@@ -28,6 +28,7 @@
 		089C1665E20B329900000212 /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 089C1665E20B329900000112 /* SettingsView.swift */; };
 		089C1665E20B329900000213 /* KeychainService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 089C1665E20B329900000113 /* KeychainService.swift */; };
 		089C1665E20B329900000214 /* PKCEHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 089C1665E20B329900000114 /* PKCEHelper.swift */; };
+		089C1665E20B329900000400 /* StravaServiceProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 089C1665E20B329900000300 /* StravaServiceProtocol.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -53,6 +54,7 @@
 		089C1665E20B329900000112 /* SettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsView.swift; sourceTree = "<group>"; };
 		089C1665E20B329900000113 /* KeychainService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeychainService.swift; sourceTree = "<group>"; };
 		089C1665E20B329900000114 /* PKCEHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PKCEHelper.swift; sourceTree = "<group>"; };
+		089C1665E20B329900000300 /* StravaServiceProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StravaServiceProtocol.swift; sourceTree = "<group>"; };
 		089C1665E20B329900000120 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		089C1665E20B329900000121 /* ZwiftSync.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = ZwiftSync.entitlements; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -99,6 +101,7 @@
 			children = (
 				089C1665E20B329900000011 /* App */,
 				089C1665E20B329900000012 /* Models */,
+				089C1665E20B329900000500 /* Protocols */,
 				089C1665E20B329900000013 /* Services */,
 				089C1665E20B329900000014 /* ViewModels */,
 				089C1665E20B329900000015 /* Views */,
@@ -168,6 +171,14 @@
 				089C1665E20B329900000114 /* PKCEHelper.swift */,
 			);
 			path = Utilities;
+			sourceTree = "<group>";
+		};
+		089C1665E20B329900000500 /* Protocols */ = {
+			isa = PBXGroup;
+			children = (
+				089C1665E20B329900000300 /* StravaServiceProtocol.swift */,
+			);
+			path = Protocols;
 			sourceTree = "<group>";
 		};
 		089C1665E20B329900000017 /* Resources */ = {
@@ -253,6 +264,7 @@
 				089C1665E20B329900000212 /* SettingsView.swift in Sources */,
 				089C1665E20B329900000213 /* KeychainService.swift in Sources */,
 				089C1665E20B329900000214 /* PKCEHelper.swift in Sources */,
+				089C1665E20B329900000400 /* StravaServiceProtocol.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

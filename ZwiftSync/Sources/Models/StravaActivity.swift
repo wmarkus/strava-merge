@@ -1,7 +1,7 @@
 import Foundation
 
 /// A Strava activity summary from the athlete's activity list.
-struct StravaActivity: Identifiable, Codable {
+struct StravaActivity: Identifiable, Codable, Equatable {
     let id: Int
     let name: String
     let type: String

@@ -180,26 +180,19 @@ final class StravaService: StravaServiceProtocol, @unchecked Sendable {
         let token = try await refreshTokenIfNeeded()
         let url = URL(string: "\(Config.stravaBaseURL)/uploads")!
 
-        let boundary = UUID().uuidString
+        var encoder = MultipartEncoder()
+        encoder.addField(name: "data_type", value: "tcx")
+        encoder.addField(name: "activity_type", value: activityType)
+        if let name {
+            encoder.addField(name: "name", value: name)
+        }
+        encoder.addFile(name: "file", filename: "activity.tcx", mimeType: "application/xml", data: tcxData)
+
         var request = URLRequest(url: url)
         request.httpMethod = "POST"
         request.setValue("Bearer \(token)", forHTTPHeaderField: "Authorization")
-        request.setValue("multipart/form-data; boundary=\(boundary)", forHTTPHeaderField: "Content-Type")
-
-        var body = Data()
-        // data_type
-        body.appendMultipart(boundary: boundary, name: "data_type", value: "tcx")
-        // activity_type
-        body.appendMultipart(boundary: boundary, name: "activity_type", value: activityType)
-        // name
-        if let name {
-            body.appendMultipart(boundary: boundary, name: "name", value: name)
-        }
-        // file
-        body.appendMultipartFile(boundary: boundary, name: "file", filename: "activity.tcx", mimeType: "application/xml", data: tcxData)
-        body.append("--\(boundary)--\r\n".data(using: .utf8)!)
-
-        request.httpBody = body
+        request.setValue(encoder.contentType, forHTTPHeaderField: "Content-Type")
+        request.httpBody = encoder.finalize()
 
         let (responseData, _) = try await session.data(for: request)
         return try decoder.decode(StravaUploadResponse.self, from: responseData)
@@ -297,23 +290,5 @@ final class PresentationContextProvider: NSObject, ASWebAuthenticationPresentati
             return ASPresentationAnchor()
         }
         return window
-    }
-}
-
-// MARK: - Multipart Helpers
-
-extension Data {
-    mutating func appendMultipart(boundary: String, name: String, value: String) {
-        append("--\(boundary)\r\n".data(using: .utf8)!)
-        append("Content-Disposition: form-data; name=\"\(name)\"\r\n\r\n".data(using: .utf8)!)
-        append("\(value)\r\n".data(using: .utf8)!)
-    }
-
-    mutating func appendMultipartFile(boundary: String, name: String, filename: String, mimeType: String, data: Data) {
-        append("--\(boundary)\r\n".data(using: .utf8)!)
-        append("Content-Disposition: form-data; name=\"\(name)\"; filename=\"\(filename)\"\r\n".data(using: .utf8)!)
-        append("Content-Type: \(mimeType)\r\n\r\n".data(using: .utf8)!)
-        append(data)
-        append("\r\n".data(using: .utf8)!)
     }
 }
